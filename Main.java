@@ -8,7 +8,7 @@ import java.util.*;
 import java.io.*; 
 public class Main {    
     public static void main(String[] args) {
-    PriorityQueue<String> pQueue = new PriorityQueue<String>();
+    //PriorityQueue<String> pQueue = new PriorityQueue<String>();
     ArrayList<String> info = new ArrayList<String>();
     // Se agregan las palabras del diccionario
     //Se lee el archivo

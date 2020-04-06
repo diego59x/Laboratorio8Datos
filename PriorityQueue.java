@@ -19,8 +19,6 @@ public interface PriorityQueue<E extends Paciente<E>>
 	public int size();
 	// post: returns number of elements within queue
 	
-	public void clear();
-	// post: removes all elements from queue
 
 
 }

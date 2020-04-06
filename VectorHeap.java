@@ -39,7 +39,7 @@ public class VectorHeap<E extends Paciente<E>> implements PriorityQueue<E> {
 	{
 		return (2*i+1) + 1;
 	}
-/*
+
 	protected void percolateUp(int leaf)
 	// pre: 0 <= leaf < size
 	// post: moves node at index leaf up to appropriate position
@@ -55,7 +55,7 @@ public class VectorHeap<E extends Paciente<E>> implements PriorityQueue<E> {
 		}
 		data.set(leaf,value);
 	}
-*/
+
 	public void add(E value)
 	// pre: value is non-null comparable
 	// post: value is added to priority queue
@@ -63,7 +63,7 @@ public class VectorHeap<E extends Paciente<E>> implements PriorityQueue<E> {
 		data.add(value);
 		percolateUp(data.size()-1);
 	}
-/*
+
 	protected void pushDownRoot(int root)
 	// pre: 0 <= root < size
 	// post: moves node at index root down
@@ -97,7 +97,7 @@ public class VectorHeap<E extends Paciente<E>> implements PriorityQueue<E> {
 			}
 		}
 	}
-*/
+
 	public E remove()
 	// pre: !isEmpty()
 	// post: returns and removes minimum value from queue
