@@ -54,7 +54,7 @@ public class Paciente implements Comparable<Paciente> {
 		this.nivel = nivel;
 	}
 	
-	// Hace que se vea bonito
+	// Informacion 
 	public String toString() {
 		return   nombre + ", " + asunto + ", " + nivel;
 	}

@@ -171,7 +171,7 @@ public class VectorHeap<E extends Comparable<E>> implements PriorityQueue<E>{
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
-		return 0;
+		return data.size();
 	}
 
 
