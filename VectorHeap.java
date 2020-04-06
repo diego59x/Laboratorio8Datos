@@ -1,60 +1,26 @@
-public class VectorHeap<E extends Paciente<E>> implements PriorityQueue<E> {    
+
+/**
+___________________________________________________________________________________
+| VectorHeap.java																   |
+| Fecha de creacion: 17/02/2020													   |
+|                                                                                  |
+* @author Diego Alvarez #19498                                                     | 
+|__________________________________________________________________________________|
+*/
+import java.util.Vector;
 
 
-	protected Paciente<E> data; // the data, kept in heap order
 
-	public VectorHeap()
+public class VectorHeap<E extends Comparable<E>> implements PriorityQueue<E>{
+
+	protected Vector<E> data; 
+
+	public VectorHeap() 
 	// post: constructs a new priority queue
 	{
-		data = new Paciente<E>();
+		data = new Vector<E>();
 	}
-
-	public VectorHeap(Paciente<E> v)
-	// post: constructs a new priority queue from an unordered vector
-	{
-		int i;
-		data = new Paciente<E>(v.size()); // we know ultimate size
-		for (i = 0; i < v.size(); i++)
-		{ // add elements to heap
-			add(v.get(i));
-		}
-	}
-	protected static int parent(int i)
-	// pre: 0 <= i < size
-	// post: returns parent of node at location i
-	{
-		return (i-1)/2;
-	}
-
-	protected static int left(int i)
-	// pre: 0 <= i < size
-	// post: returns index of left child of node at location i
-	{
-		return 2*i+1;
-	}
-
-	protected static int right(int i)
-	// pre: 0 <= i < size
-	// post: returns index of right child of node at location i
-	{
-		return (2*i+1) + 1;
-	}
-
-	protected void percolateUp(int leaf)
-	// pre: 0 <= leaf < size
-	// post: moves node at index leaf up to appropriate position
-	{
-		int parent = parent(leaf);
-		E value = data.get(leaf);
-		while (leaf > 0 &&
-		(value.compareTo(data.get(parent)) < 0))
-		{
-			data.set(leaf,data.get(parent));
-			leaf = parent;
-			parent = parent(leaf);
-		}
-		data.set(leaf,value);
-	}
+	
 
 	public void add(E value)
 	// pre: value is non-null comparable
@@ -63,7 +29,90 @@ public class VectorHeap<E extends Paciente<E>> implements PriorityQueue<E> {
 		data.add(value);
 		percolateUp(data.size()-1);
 	}
+	
 
+	@Override
+	public E getFirst() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @param v
+	 */
+	public VectorHeap(Vector<E> v)
+	// post: constructs a new priority queue from an unordered vector
+	{
+		int i;
+		data = new Vector<E>(v.size()); // we know ultimate size
+		for (i = 0; i < v.size(); i++)
+			{ // add elements to heap
+			add(v.get(i));
+		}
+	}
+	public String toString() {
+		return "Info :" + data;
+	}
+
+
+	/**
+	 * @param i
+	 * @return
+	 */
+	protected static int parent(int i)
+	// pre: 0 <= i < size
+	// post: returns parent of node at location i
+	{
+		return (i-1)/2;
+	}
+	
+	/**
+	 * @param i
+	 * @return
+	 */
+	protected static int left(int i)
+	// pre: 0 <= i < size
+	// post: returns index of left child of node at location i
+	{
+		return 2*i+1;
+	}
+	
+	
+	/**
+	 * @param i
+	 * @return
+	 */
+	protected static int right(int i)
+	// pre: 0 <= i < size
+	// post: returns index of right child of node at location i
+	{
+		return 2*(i+1);
+	}
+	
+	/**
+	 * @param leaf
+	 */
+	protected void percolateUp(int leaf)
+	// pre: 0 <= leaf < size
+	// post: moves node at index leaf up to appropriate position
+	{
+		int parent = parent(leaf);
+		E value = data.get(leaf);
+		while (leaf > 0 &&
+		(value.compareTo(data.get(parent)) < 0))
+	{
+		data.set(leaf,data.get(parent));
+		leaf = parent;
+		parent = parent(leaf);
+	}
+		data.set(leaf,value);
+	}
+	
+
+	
+	/**
+	 * @param root
+	 */
 	protected void pushDownRoot(int root)
 	// pre: 0 <= root < size
 	// post: moves node at index root down
@@ -72,40 +121,64 @@ public class VectorHeap<E extends Paciente<E>> implements PriorityQueue<E> {
 		int heapSize = data.size();
 		E value = data.get(root);
 		while (root < heapSize) {
-			int childpos = left(root);
-			if (childpos < heapSize)
+		int childpos = left(root);
+		if (childpos < heapSize)
 			{
-				if ((right(root) < heapSize) &&
+			if ((right(root) < heapSize) &&
 				((data.get(childpos+1)).compareTo
 				(data.get(childpos)) < 0))
 				{
-					childpos++;
-				}
+			childpos++;
+			}
 			// Assert: childpos indexes smaller of two children
 			if ((data.get(childpos)).compareTo
-				(value) < 0)
+			(value) < 0)
 			{
 				data.set(root,data.get(childpos));
 				root = childpos; // keep moving down
 			} else { // found right location
-				data.set(root,value);
-				return;
+			data.set(root,value);
+			return;
 			}
-			} else { // at a leaf! insert and halt
-				data.set(root,value);
-				return;
-			}
+		} else { // at a leaf! insert and halt
+		data.set(root,value);
+		return;
 		}
 	}
-
+	}
+	
 	public E remove()
+	// TODO Auto-generated method stub
 	// pre: !isEmpty()
 	// post: returns and removes minimum value from queue
 	{
 		E minVal = getFirst();
 		data.set(0,data.get(data.size()-1));
 		data.setSize(data.size()-1);
-		if (data.size() > 1) pushDownRoot(0);
+		if (data.size() > 1) pushDownRoot(0);{
 		return minVal;
+		}
 	}
+
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}	
+
 }
